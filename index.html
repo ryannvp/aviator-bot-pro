@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>AVIATOR HACKER DASHBOARD</title>
+    <script src="/socket.io/socket.io.js"></script>
+    <style>
+        body { background: #0a0a0a; color: #00ff88; font-family: monospace; padding: 50px; }
+        .card { border: 1px solid #333; padding: 20px; border-radius: 10px; background: #111; }
+        .vela { font-size: 48px; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <h1>SISTEMA DE MONITORAMENTO EM TEMPO REAL</h1>
+        <div id="status">AGUARDANDO DADOS DO SATÉLITE...</div>
+        <div id="display" class="vela">--</div>
+    </div>
+
+    <script>
+        const socket = io();
+        socket.on('nova_vela', (data) => {
+            document.getElementById('display').innerText = data.valor + 'x';
+            document.getElementById('status').innerText = 'ÚLTIMA CAPTURA: ' + data.timestamp;
+        });
+    </script>
+</body>
+</html>
